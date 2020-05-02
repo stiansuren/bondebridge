@@ -29,6 +29,7 @@ let players = [];
 
 nextApp.prepare().then(() => {
   app.get("*", (req, res) => {
+    res.statusCode = 200;
     return nextHandler(req, res);
   });
 
