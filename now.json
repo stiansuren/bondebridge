@@ -7,4 +7,5 @@
       "dest": "/server.js",
       "methods": ["GET"]
     }
+  ]
 }
