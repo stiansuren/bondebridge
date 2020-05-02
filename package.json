@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "node server.js",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js"
+    "start": "cross-env NODE_ENV=production node server.js"
   },
   "dependencies": {
     "express": "^4.17.1",
@@ -19,6 +19,7 @@
   "devDependencies": {
     "@types/node": "^13.13.4",
     "@types/styled-components": "^5.1.0",
+    "cross-env": "^7.0.2",
     "ts-node": "^8.9.1",
     "typescript": "^3.8.3"
   }

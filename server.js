@@ -12,6 +12,8 @@ let port = 3000;
 let players = [];
 
 io.on("connect", (socket) => {
+  const socketId = socket.id;
+
   socket.on("player", (player) => {
     players = [...players, player];
     console.log(players);
@@ -19,7 +21,9 @@ io.on("connect", (socket) => {
   });
 
   socket.on("disconnect", () => {
-    console.log("user disconnected");
+    players = players.filter((p) => p.id !== socketId);
+    console.log(players);
+    io.emit("setPlayers", players);
   });
 });
 
