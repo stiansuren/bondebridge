@@ -1,6 +1,6 @@
 const app = require("express")();
 const server = require("http").Server(app);
-const io = require("socket.io")(server);
+// const io = require("socket.io")(server);
 const next = require("next");
 
 const dev = process.env.NODE_ENV !== "production";
@@ -11,25 +11,24 @@ let port = 3000;
 
 let players = [];
 
-io.on("connect", (socket) => {
-  const socketId = socket.id;
+// io.on("connect", (socket) => {
+//   const socketId = socket.id;
 
-  socket.on("player", (player) => {
-    players = [...players, player];
-    console.log(players);
-    io.emit("setPlayers", players);
-  });
+//   socket.on("player", (player) => {
+//     players = [...players, player];
+//     console.log(players);
+//     io.emit("setPlayers", players);
+//   });
 
-  socket.on("disconnect", () => {
-    players = players.filter((p) => p.id !== socketId);
-    console.log(players);
-    io.emit("setPlayers", players);
-  });
-});
+//   socket.on("disconnect", () => {
+//     players = players.filter((p) => p.id !== socketId);
+//     console.log(players);
+//     io.emit("setPlayers", players);
+//   });
+// });
 
 nextApp.prepare().then(() => {
   app.get("*", (req, res) => {
-    res.status(200).send(`Hello!`);
     return nextHandler(req, res);
   });
 
