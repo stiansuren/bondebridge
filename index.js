@@ -29,6 +29,7 @@ io.on("connect", (socket) => {
 
 nextApp.prepare().then(() => {
   app.get("*", (req, res) => {
+    res.status(200).send(`Hello!`);
     return nextHandler(req, res);
   });
 
