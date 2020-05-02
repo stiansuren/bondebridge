@@ -11,11 +11,6 @@ let port = 3000;
 
 let players = [];
 
-const values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
-const suits = ["diamonds", "clubs", "hearts", "spades"];
-
-const shuffleDeck = () => 0.5 - Math.random();
-
 io.on("connect", (socket) => {
   socket.on("player", (player) => {
     players = [...players, player];
