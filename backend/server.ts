@@ -1,6 +1,8 @@
-const app = require("express")();
+const express = require("express");
+const app = express();
 const http = require("http").Server(app);
-const io: any = require("socket.io")(http);
+const path = require("path");
+const socketIO: any = require("socket.io")(http);
 
 const port = process.env.PORT || 5000;
 
@@ -11,23 +13,33 @@ type Player = {
 
 let players: Player[] = [];
 
-io.on("connect", (socket: SocketIOClient.Socket) => {
+socketIO.on("connect", (socket: SocketIOClient.Socket) => {
   const socketId = socket.id;
   console.log(socketId);
 
   socket.on("player", (player: Player) => {
     players = [...players, player];
     console.log(players);
-    io.emit("setPlayers", players);
+    socketIO.emit("setPlayers", players);
   });
 
   socket.on("disconnect", () => {
     players = players.filter((p) => p.id !== socketId);
     console.log(players);
-    io.emit("setPlayers", players);
+    socketIO.emit("setPlayers", players);
   });
 });
 
 http.listen(port, () => {
   console.log(`Started server on port ${port}`);
 });
+
+if (process.env.NODE_ENV === "production") {
+  // Serve any static files
+  app.use(express.static(path.join(__dirname, "../frontend/build")));
+
+  // Handle React routing, return all requests to React app
+  app.get("*", function (req: any, res: any) {
+    res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));
+  });
+}
