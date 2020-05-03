@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 import styled from "styled-components";
 
-const socket = io("http://localhost:3000");
+const socket = io(window.location.href);
 
-// const H1 = styled.h1`
-//   font-size: 31px;
-// `;
+const H1 = styled.h1`
+  font-size: 31px;
+`;
 
 type GameProps = {
   name: string;
@@ -37,9 +37,9 @@ export default function Game({ name }: GameProps) {
 
   return (
     <main>
-      <h1>You</h1>
+      <H1>You</H1>
       <p>{player.name}</p>
-      <h1>All players</h1>
+      <H1>All players</H1>
       {players.map((player: Player) => (
         <p key={player.name}>{player.name}</p>
       ))}
