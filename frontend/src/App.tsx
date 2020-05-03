@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Game from "./components/Game";
 
-function App() {
+export default function App() {
+  const [name, setName] = useState("");
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setLoggedIn(true);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      {loggedIn ? (
+        <Game name={name} />
+      ) : (
+        <form onSubmit={(e: React.FormEvent) => handleSubmit(e)}>
+          <label>
+            Navn
+            <input
+              type="text"
+              onChange={(e) => setName(e.target.value)}
+            ></input>
+          </label>
+          <button>Bekreft</button>
+        </form>
+      )}
     </div>
   );
 }
-
-export default App;
