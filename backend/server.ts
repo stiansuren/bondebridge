@@ -13,7 +13,7 @@ type Player = {
 
 let players: Player[] = [];
 
-socketIO.on("connect", (socket: SocketIOClient.Socket) => {
+socketIO.on("connect", (socket: any) => {
   const socketId = socket.id;
   console.log(socketId);
 
